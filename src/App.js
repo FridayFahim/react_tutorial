@@ -9,20 +9,31 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      darkMode: true,
       header: {
         title: "hello react",
         subtitle: "we're going to learn M.E.R.N stack"
       },
       mainTitle: "react is fun"
     }
+    // this.switchLight = this.switchLight.bind()
+  }
+
+  switchLight = () => {
+    let {darkMode} = this.state
+    this.setState({
+      darkMode:!darkMode
+    })
   }
 
   render() {
-    const {header,mainTitle} = this.state
+    const { header, mainTitle, darkMode } = this.state
     return (
       <Fragment>
-        <Header headerContent={header}/>
-        <Main mainContent={mainTitle}/>
+        <Header switchLight={this.switchLight.bind()} darkMode={darkMode} headerContent={header} />
+        <Main mainContent={mainTitle} />
+
+      
       </Fragment>
     )
   }

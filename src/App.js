@@ -1,39 +1,48 @@
 // import logo from './logo.svg';
 import React, { Component, Fragment } from "react"
-import Header from "./Components/Header"
-import Main from "./Components/Main"
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
-import './App.scss'
-
+import Post from './Components/Post'
 class App extends Component {
-  constructor(props) {
-    super(props)
+  constructor(){
+    super()
     this.state = {
-      darkMode: true,
-      header: {
-        title: "hello react",
-        subtitle: "we're going to learn M.E.R.N stack"
-      },
-      mainTitle: "react is fun"
+      posts:[
+        {
+          title:"Sturdy Themes",
+          body:"Our themes are updated regularly to keep them bug free!",
+          author:"fahim"
+        },
+        {
+          title:"Up to Date",
+          body:"All dependencies are kept current to keep things fresh.",
+          author:"rahim"
+        },
+        {
+          title:"Ready to Publish",
+          body:"You can use this design as is, or you can make changes!",
+          author:"karim"
+        },
+        {
+          title:"Ready to Publish",
+          body:"You can use this design as is, or you can make changes!",
+          author:"karim"
+        }
+      ]
     }
-    // this.switchLight = this.switchLight.bind()
   }
-
-  switchLight = () => {
-    let {darkMode} = this.state
-    this.setState({
-      darkMode:!darkMode
-    })
-  }
-
   render() {
-    const { header, mainTitle, darkMode } = this.state
+    console.log(Post)
     return (
+    
       <Fragment>
-        <Header switchLight={this.switchLight.bind()} darkMode={darkMode} headerContent={header} />
-        <Main mainContent={mainTitle} />
-
-      
+        <div className="container">
+          <div className="row">
+            {this.state.posts.map((post,index) => {
+              return <Post key={index} post={post}/>
+            })}
+          </div>
+        </div>
       </Fragment>
     )
   }

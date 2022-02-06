@@ -1,22 +1,31 @@
-import React, { Component } from 'react';
+import React, { Component,useEffect } from 'react';
 import HOC from './HOC'
 
-class Post extends Component {
-    constructor(){
-        super()
-    }
-  render() {
-      const {title,body,author} = this.props.post
-      const meta = this.props.meta
+function Post(props) {
+
+
+    // componentDidMount(){
+    //     console.log("component mounted")
+    // }
+
+    useEffect(() => {
+        console.log("component did mouhnt")
+
+        return(console.log("component will unmount"))
+    },[])
+      const {title,body,author} = props.post
       return <div className="col-md-3">
          
          <div className="post">
-              <h1>{meta}</h1>
+           
               <h2>{title}</h2>
               <p>{body}</p>
               <p><strong>author:</strong> {author}</p>
          </div>
       </div>;
-  }
+
+//   componentWillUnmount(){
+//       console.log("I am dying")
+//   }
 }
 export default HOC(Post)

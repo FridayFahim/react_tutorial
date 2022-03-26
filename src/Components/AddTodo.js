@@ -4,9 +4,10 @@ import { v4 as uuidv4 } from "uuid";
 const AddTodo = ({ todoList, setTodoList }) => {
   const [todo, setTodo] = useState({
     id: "",
-    date: "",
     title: "",
     summery: "",
+    selected: false,
+    completed:false
   });
 
   function addTodo(e) {

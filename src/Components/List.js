@@ -8,11 +8,14 @@ const List = ({
   completed,
   completedTodo,
   selectItems,
+  selected
 }) => {
   const rowStyle = {
     padding: "50px",
     background: "#f5f5f5",
     borderBottom: "2px solid blue",
+    textDecoration: selected?"line-through":"none",
+    color: selected?"red":"black",
   };
   return (
     <div className="list">

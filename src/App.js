@@ -1,48 +1,13 @@
 import React, { Fragment, useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Title from "./Components/Title";
-import List from "./Components/List";
+import Area from "./Components/Area";
+import Data from './Data'
 import AddTodo from "./Components/AddTodo";
-const App = () => {
-  const [todoLists, setTodoLists] = useState([
-    {
-      id: 1,
-      title: "delectus aut autem",
-      summery:
-        "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      completed: false,
-    },
-    {
-      id: 2,
-      title: "quis ut nam facilis et officia qui",
-      summery:
-        "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      completed: false,
-    },
-    {
-      id: 3,
-      title: "fugiat veniam minus",
-      summery:
-        "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      completed: false,
-    },
-    {
-      id: 4,
-      title: "et porro tempora",
-      summery:
-        "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      completed: true,
-    },
-    {
-      id: 5,
-      title: "laboriosamum",
-      summery:
-        "laboriosam mollitia et enim quasi adipisci quia provident illum",
-      completed: false,
-    },
-  ]);
+import { list } from "postcss";
 
-  let selectedItems = [];
+const App = () => {
+  const [todoLists, setTodoLists] = useState(Data);
 
   const removeTodo = (removeId) => {
     let newList = todoLists.filter(({ id }) => id !== removeId);
@@ -60,53 +25,36 @@ const App = () => {
 
   const selectItems = (e, id) => {
     if (e.target.checked) {
-      selectedItems.push(id);
+      let newList = todoLists.map((list) => {
+        list.selected = list.id === id ? true : list.selected;
+        return list;
+      });
+      setTodoLists(newList);
     }
     if (e.target.checked === false) {
-      selectedItems = selectedItems.filter((item) => item !== id);
+      let newList = todoLists.map((list) => {
+        if (list.id === id) {
+          list.selected = false
+        }
+        return list;
+      });
+      setTodoLists(newList);
     }
-    console.log(selectedItems);
+    console.log();
   };
 
   function removeSelected() {
-    // todoLists.map(lists => {
-    //   newList = selectedItems
-    // })
+    setTodoLists(todoLists.filter(list => list.selected !== true))
   }
   return (
     <Fragment>
       <Title />
-      <div className="area">
-        <div className="todoapp">
-          <div className="container">
-            {todoLists.map(({ id, date, title, summery, completed }, index) => {
-              return (
-                <List
-                  key={id}
-                  id={id}
-                  title={title}
-                  body={summery}
-                  completed={completed}
-                  removeTodo={removeTodo}
-                  completedTodo={completedTodo}
-                  selectItems={selectItems}
-                />
-              );
-            })}
-
-            <div className="row aligne-items-bottom justify-content-end">
-              <div className="col-md-3">
-                <button
-                  className="btn btn-warning"
-                  onClick={() => removeSelected()}
-                >
-                  remove selected
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <Area
+        todoLists={todoLists}
+        removeTodo={removeTodo}
+        completedTodo={completedTodo}
+        selectItems={selectItems}
+      />
       <AddTodo todoList={todoLists} setTodoList={setTodoLists} />
     </Fragment>
   );
